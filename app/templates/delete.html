@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Delete Enrollment</h2>
+<p>Are you sure you want to delete {{ enrollment.id }} ?</p>
+
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Delete</button>
+  <a href="{% url 'home' %}" style="text-decoration: none; margin-left: 15px; padding: 10px 20px; background:#333333; color: white; border-radius: 3px; font-size: 13.3333px;:hover{background-color: #3333339c; color: green;}">No</a>
+</form>
+{% endblock %}

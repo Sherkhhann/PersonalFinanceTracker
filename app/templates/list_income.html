@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 style="text-align: center;">Incomes</h1>
+<h2 style="text-align: center;">Total: ${{ total_income }}</h2>
+<table class="income-table" style="border-collapse: collapse; width: 100%;">
+    <thead>
+        <tr style="background-color: #f2f2f2;">
+            <th style="border: 1px solid #ddd; padding: 8px;">Category</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Amount</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Payment method</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Comment</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Date</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for income in incomes %}
+        <tr style="background-color: #ffffff;">
+            <td style="border: 1px solid #ddd; padding: 8px;">{{ income.get_income_category_display }}</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">${{ income.income_amount }}</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">{{ income.get_income_payment_method_display }}</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">{{ income.income_comment }}</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">{{ income.income_date }}</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">
+                <a href="{% url 'update_in' pk=income.pk %}" style="background-color: #4CAF50; color: white; padding: 8px 12px; text-align: center; text-decoration: none; display: inline-block; border-radius: 4px;">Update</a>
+                <a href="{% url 'delete_in' pk=income.pk %}" style="background-color: #f44336; color: white; padding: 8px 12px; text-align: center; text-decoration: none; display: inline-block; border-radius: 4px;">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}

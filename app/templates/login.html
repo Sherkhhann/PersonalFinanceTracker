@@ -1,0 +1,22 @@
+
+{% block content %}
+<div class="container" style="text-align: center; margin-top: 50px;">
+    <h1 style="margin-bottom: 20px; color: #333;">Login Form</h1>
+    <form method="post" style="display: inline-block; padding: 20px; border: 1px solid #333; border-radius: 8px;">
+        {% csrf_token %}
+        <div style="margin-bottom: 15px;">
+            <label for="id_username" style="font-weight: bold; color: #333;">Username:</label><br>
+            {{ form.username }}
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label for="id_password" style="font-weight: bold; color: #333;">Password:</label><br>
+            {{ form.password }}
+        </div>
+        <button type="submit" style="background-color: #333; color: white; padding: 10px 20px; border: none; border-radius: 4px;">Login</button>
+        <p>Don't have an account? <a href="{% url 'signup' %}" style="text-decoration: none; color: gray;">Register</a></p>
+    </form>
+
+</div>
+
+
+{% endblock content %}

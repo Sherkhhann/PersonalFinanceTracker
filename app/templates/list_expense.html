@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<h1 style="text-align: center;">Expenses</h1>
+<h2 style="text-align: center;">Total: ${{ total_expense }}</h2>
+<table style="border-collapse: collapse; width: 100%;">
+    <thead>
+        <tr style="background-color: #f2f2f2;">
+            <th style="border: 1px solid #ddd; padding: 8px;">Category</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Amount</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Payment method</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Comment</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Data</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for expense in expenses %}
+        <tr style="background-color: #ffffff;">
+            <td style="border: 1px solid #ddd; padding: 8px;">{{ expense.get_expense_category_display }}</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">${{ expense.expense_amount }}</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">{{ expense.get_expense_payment_method_display }}</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">{{ expense.expense_comment }}</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">{{ expense.expense_date }}</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">
+                <a href="{% url 'update_ex' pk=expense.pk %}" style="background-color: #4CAF50; color: white; padding: 8px 12px; text-align: center; text-decoration: none; display: inline-block; border-radius: 4px;">Update</a>
+                <a href="{% url 'delete_ex' pk=expense.pk %}" style="background-color: #f44336; color: white; padding: 8px 12px; text-align: center; text-decoration: none; display: inline-block; border-radius: 4px;">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}
