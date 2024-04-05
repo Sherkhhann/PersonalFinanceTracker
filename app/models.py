@@ -2,45 +2,47 @@ from django.db import models
 from enum import Enum
 from django.urls import reverse
 from django.contrib.auth.models import User
-from django_enum_choices.fields import EnumChoiceField
 from django.utils import timezone
 
-# Create your models here.
 
-
-class ExpenseCategory(Enum):
-    ENTERTAINMENT = "Enterteinment"
-    FOOD = "Food"
-    TRANSPORT = "Transport"
-    SHOPPING = "Shopping"
-    FAMILY = "Family"
-    OTHER = "Other"
-
-
-class IncomeCategory(Enum):
-    FINANCE = 'Financial income'
-    INCOME = 'Income'
-    OTHER = 'Other'
-
-
-class PaymentMethod(Enum):
-    WALLET = "Wallet"
-    CARD = "Card"
+PAYMENT_METHOD = (
+    ('Card', 'Card'),
+    ('Cash', 'Cash'),
+)
 
 
 class Expense(models.Model):
+    ExpenseCategory = (
+        ('Food/Drinks', 'Food/Drinks'),
+        ('Clothing', "Clothing"),
+        ('Transportation', 'Transportation'),
+        ('Entertainment', 'Entertainment'),
+        ('Home', 'Home'),
+        ('Family', 'Family'),
+        ('Sport/Health', 'Sport/Health'),
+        ('Pets', 'Pets'),
+        ('Subscriptions', 'Subscriptions'),
+        ('Bills/Utiliets', 'Bills and Utilietes'),
+        ('Education', 'Education'),
+        ('Groceries', 'Groceries'),
+    )
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='expenses')
-    expense_category = EnumChoiceField(ExpenseCategory)
+    expense_category = models.CharField(max_length=50, choices=ExpenseCategory)
     expense_amount = models.IntegerField(default=0)
-    expense_payment_method = EnumChoiceField(PaymentMethod)
+    expense_payment_method = models.CharField(max_length=50, choices=PAYMENT_METHOD)
     expense_date = models.DateTimeField(default=timezone.now)
     expense_comment = models.TextField(null=False)
 
 
 class Income(models.Model):
+    IncomeCategory = (
+        ('Financial income', 'Financial income'),
+        ('Income', 'Income'),
+        ('Other', 'Other')
+    )
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='incomes')
-    income_category = EnumChoiceField(IncomeCategory)
+    income_category = models.CharField(max_length=50, choices=IncomeCategory)
     income_amount = models.IntegerField(default=0)
-    income_payment_method = EnumChoiceField(PaymentMethod)
+    income_payment_method = models.CharField(max_length=50, choices=PAYMENT_METHOD)
     income_date = models.DateTimeField(default=timezone.now)
     income_comment = models.TextField(null=False)

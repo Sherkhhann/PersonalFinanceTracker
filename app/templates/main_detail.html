@@ -1,14 +1,34 @@
 {% extends "base.html" %}
 
+
+{% load static %}
+
+
 {% block content %}
-<div style="text-align: center;">
-    <h2 class="heading" style="margin-bottom: 20px;">Summary</h2>
-    <div style="background-color: #f2f2f2; border: 1px solid #ddd; padding: 20px; border-radius: 8px; display: inline-block;">
-        <h2 style="margin-bottom: 10px;">Balance: ${{ total_balance }}</h2>
-        <h3 style="margin-bottom: 10px;">Total Expense: ${{ total_expense }}</h3>
-        <h3>Total Income: ${{ total_income }}</h3>
+<div class="main-conteiner">
+<div class="conteiner-total">
+    <div class="balance">
+        <h2>Balance: <span class="price">{{ total_balance }} SMN</span> <img class="somoni" src="{% static 'images/tajikistan.png' %}" alt=""></h2>
+        <h3>Total income: <span  class="price">{{ total_income }} SMN</span><img class="somoni" src="{% static 'images/tajikistan.png' %}" alt=""></h3>
+        <h3>Total expense: <span class="price-expense">-{{ total_expense }} SMN</span><img class="somoni" src="{% static 'images/tajikistan.png' %}" alt=""></h3>
     </div>
 </div>
-
+<div class="conteiner-total this-month">
+    <img src="" alt="">
+    <div class="this-month-item">
+        <h2>This month</h2>
+        <h3>Total income: <span  class="price">500 SMN<img class="somoni" src="{% static 'images/tajikistan.png' %}" alt=""></span></h3>
+        <h3>Total expense: <span  class="price">500 SMN<img class="somoni" src="{% static 'images/tajikistan.png' %}" alt=""></span></h3>
+    </div>
+</div>
+<div class="conteiner-total last-month">
+    <img src="" alt="">
+    <div class="this-month-item">
+        <h2>Last month</h2>
+        <h3>Total income: <span  class="price">500 SMN<img class="somoni" src="{% static 'images/tajikistan.png' %}" alt=""></span></h3>
+        <h3>Total expense: <span  class="price">500 SMN<img class="somoni" src="{% static 'images/tajikistan.png' %}" alt=""></span></h3>
+    </div>
+</div>
+</div>
 
 {% endblock %}
