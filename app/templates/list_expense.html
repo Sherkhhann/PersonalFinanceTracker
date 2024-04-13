@@ -22,7 +22,7 @@
             <td style="border: 1px solid #ddd; padding: 8px;">${{ expense.expense_amount }}</td>
             <td style="border: 1px solid #ddd; padding: 8px;">{{ expense.get_expense_payment_method_display }}</td>
             <td style="border: 1px solid #ddd; padding: 8px;">{{ expense.expense_comment }}</td>
-            <td style="border: 1px solid #ddd; padding: 8px;">{{ expense.expense_date }}</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">{{ expense.expense_date|date:"d/m/Y" }}</td>
             <td style="border: 1px solid #ddd; padding: 8px;">
                 <a href="{% url 'update_ex' pk=expense.pk %}" style="background-color: #4CAF50; color: white; padding: 8px 12px; text-align: center; text-decoration: none; display: inline-block; border-radius: 4px;">Update</a>
                 <a href="{% url 'delete_ex' pk=expense.pk %}" style="background-color: #f44336; color: white; padding: 8px 12px; text-align: center; text-decoration: none; display: inline-block; border-radius: 4px;">Delete</a>

@@ -3,12 +3,16 @@ from enum import Enum
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.utils import timezone
-
+from datetime import datetime
 
 PAYMENT_METHOD = (
     ('Card', 'Card'),
     ('Cash', 'Cash'),
 )
+
+# now = datetime.now()
+# local_time = timezone.localtime(now)
+# local_date = local_time.date()
 
 
 class Expense(models.Model):
@@ -30,7 +34,7 @@ class Expense(models.Model):
     expense_category = models.CharField(max_length=50, choices=ExpenseCategory)
     expense_amount = models.IntegerField(default=0)
     expense_payment_method = models.CharField(max_length=50, choices=PAYMENT_METHOD)
-    expense_date = models.DateTimeField(default=timezone.now)
+    expense_date = models.DateField(default=timezone.now)
     expense_comment = models.TextField(null=False)
 
 
@@ -44,5 +48,5 @@ class Income(models.Model):
     income_category = models.CharField(max_length=50, choices=IncomeCategory)
     income_amount = models.IntegerField(default=0)
     income_payment_method = models.CharField(max_length=50, choices=PAYMENT_METHOD)
-    income_date = models.DateTimeField(default=timezone.now)
+    income_date = models.DateField(default=timezone.now)
     income_comment = models.TextField(null=False)

@@ -1,34 +1,72 @@
 {% extends "base.html" %}
-
-
 {% load static %}
 
 
+
+
 {% block content %}
-<div class="main-conteiner">
-<div class="conteiner-total">
+<!-- <div class="main-conteiner" style="display: flex; justify-content: center;">
+<div class="conteiner-total" style="border: 1px solid black; margin: 10px; width: 25%" >
     <div class="balance">
         <h2>Balance: <span class="price">{{ total_balance }} SMN</span> <img class="somoni" src="{% static 'images/tajikistan.png' %}" alt=""></h2>
         <h3>Total income: <span  class="price">{{ total_income }} SMN</span><img class="somoni" src="{% static 'images/tajikistan.png' %}" alt=""></h3>
         <h3>Total expense: <span class="price-expense">-{{ total_expense }} SMN</span><img class="somoni" src="{% static 'images/tajikistan.png' %}" alt=""></h3>
     </div>
 </div>
-<div class="conteiner-total this-month">
+<div class="conteiner-total this-month" style="border: 1px solid black; margin: 10px; width: 25%">
     <img src="" alt="">
     <div class="this-month-item">
         <h2>This month</h2>
-        <h3>Total income: <span  class="price">500 SMN<img class="somoni" src="{% static 'images/tajikistan.png' %}" alt=""></span></h3>
-        <h3>Total expense: <span  class="price">500 SMN<img class="somoni" src="{% static 'images/tajikistan.png' %}" alt=""></span></h3>
+        <h3>Total income: <span  class="price">{{ income_this_month }} SMN<img class="somoni" src="{% static 'images/tajikistan.png' %}" alt=""></span></h3>
+        <h3>Total expense: <span  class="price">{{ expense_this_month }} SMN<img class="somoni" src="{% static 'images/tajikistan.png' %}" alt=""></span></h3>
     </div>
 </div>
-<div class="conteiner-total last-month">
+<div class="conteiner-total this-month" style="border: 1px solid black; margin: 10px; width: 25%">
     <img src="" alt="">
     <div class="this-month-item">
         <h2>Last month</h2>
-        <h3>Total income: <span  class="price">500 SMN<img class="somoni" src="{% static 'images/tajikistan.png' %}" alt=""></span></h3>
-        <h3>Total expense: <span  class="price">500 SMN<img class="somoni" src="{% static 'images/tajikistan.png' %}" alt=""></span></h3>
+        <h3>Total income: <span  class="price">{{income_last_month}} SMN<img class="somoni" src="{% static 'images/tajikistan.png' %}" alt=""></span></h3>
+        <h3>Total expense: <span  class="price">{{expense_last_month}} SMN<img class="somoni" src="{% static 'images/tajikistan.png' %}" alt=""></span></h3>
     </div>
 </div>
+<div class="conteiner-total last-month" style="border: 1px solid black; margin: 10px; width: 25%">
+    <img src="" alt="">
+    <div class="this-month-item">
+        <h2>Last month</h2>
+        <h3>Card balance: <span  class="price">{{ card_balance }} SMN<img class="somoni" src="{% static 'images/tajikistan.png' %}" alt=""></span></h3>
+        <h3>Wallet balance: <span  class="price">{{ wallet_balance }} SMN<img class="somoni" src="{% static 'images/tajikistan.png' %}" alt=""></span></h3>
+    </div>
 </div>
+</div> -->
 
+<div class="main" style="display: flex; gap: 50px; justify-content: center; padding-top: 40px; background-color: white;">
+    <div class="conteiner1" style="display: flex; gap: 20px; border-radius: 10px; padding: 30px; width: 30%; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+        <div class="conteiner-item">
+        <h2 style="font-size: 25px;">Balance: {{ total_balance }} SMN</h2>
+        <h3 style="font-size: 20px;"><span style="color: green;">Total income: + {{ total_income }} SMN</span></h3>
+        <h3 style="font-size: 20px;"><span style="color: red;">Total expense: - {{ total_expense }} SMN</span></h3>
+        </div>
+    </div>
+    <div class="conteiner2" style="display: flex; gap: 20px; border-radius: 10px; padding: 30px; width: 30%; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+        <div class="conteiner-item">
+            <h2 style="font-size: 25px;">This month</h2>
+            <h3 style="font-size: 20px;"><span style="color: green;">Total income: + {{ income_this_month}} SMN</span></h3>
+            <h3 style="font-size: 20px;"><span style="color: red;">Total expense: - {{ expense_this_month }} SMN</span></h3>
+        </div>
+        <!-- <div class="conteiner-item2" style="width: 200px; align-content: center;">
+            <div class="item2" style="width: 100%; background-color: red;"><h4 style="text-align: center; background-color: red; width: {{ procent_of_income }}%; background-color: red;">{{ procent_of_income }}%</h4></div> -->
+<!--     -->
+    </div>
+    <div class="conteiner3" style="display: flex; gap: 20px; border-radius: 10px; padding: 30px; width: 30%; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+        <div class="conteiner-item">
+        <h2 style="font-size: 25px;">Last month</h2>
+        <h3 style="font-size: 20px;"><span style="color: green;">Total income: + {{ income_last_month }} SMN</span></h3>
+        <h3 style="font-size: 20px;"><span style="color: red;">Total expense: - {{ expense_last_month }} SMN</span></h3>
+    </div>
+    <!-- <div class="conteiner-item2" style="width: 30%; background-color: red; ">
+        <div class="item2" style="width: 200%; background-color: green;"></div>
+        
+    </div> -->
+    </div>
+</div>
 {% endblock %}

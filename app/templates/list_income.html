@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="main" style="display: flex; gap: 20px;">
+<div class="left" style="width: 25%; background-color: #f44336; position: sticky; top: 0; height: 80vh;">
+</div>
+<div class="right" style="flex-grow: 5; padding-right: 20px;">
 <h1 style="text-align: center;">Incomes</h1>
 <h2 style="text-align: center;">Total: ${{ total_income }}</h2>
 <table class="income-table" style="border-collapse: collapse; width: 100%;">
@@ -21,7 +25,7 @@
             <td style="border: 1px solid #ddd; padding: 8px;">${{ income.income_amount }}</td>
             <td style="border: 1px solid #ddd; padding: 8px;">{{ income.get_income_payment_method_display }}</td>
             <td style="border: 1px solid #ddd; padding: 8px;">{{ income.income_comment }}</td>
-            <td style="border: 1px solid #ddd; padding: 8px;">{{ income.income_date }}</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">{{ income.income_date|date:"d/m/Y" }}</td>
             <td style="border: 1px solid #ddd; padding: 8px;">
                 <a href="{% url 'update_in' pk=income.pk %}" style="background-color: #4CAF50; color: white; padding: 8px 12px; text-align: center; text-decoration: none; display: inline-block; border-radius: 4px;">Update</a>
                 <a href="{% url 'delete_in' pk=income.pk %}" style="background-color: #f44336; color: white; padding: 8px 12px; text-align: center; text-decoration: none; display: inline-block; border-radius: 4px;">Delete</a>
@@ -30,5 +34,7 @@
         {% endfor %}
     </tbody>
 </table>
+</div>
+</div>
 
 {% endblock content %}
