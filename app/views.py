@@ -1,4 +1,5 @@
-from django.shortcuts import redirect
+from django.db.models.query import QuerySet
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import generic 
 from .models import Expense, Income, PAYMENT_METHOD
@@ -9,6 +10,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login
 from datetime import timedelta
 from django.utils import timezone
+from .filters import ExpenseFilter
+from .forms import ExpenseFilterForm, IncomeFilterForm
 
 
 class UserLoginView(LoginView):
@@ -112,16 +115,61 @@ class BaseListView(LoginRequiredMixin,generic.ListView):
 
 class ExpenseListView(LoginRequiredMixin,generic.ListView):
     model = Expense
+    filterset_class = ExpenseFilter
     template_name = 'list_expense.html'
     context_object_name = 'expenses'
+
+    def get_queryset(self):
+
+        queryset = super().get_queryset()
+        self.filterset = ExpenseFilter(self.request.GET, queryset=queryset)
+        
+        return self.filterset.qs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         total_expense = Expense.objects.filter(user=self.request.user).aggregate(total=Sum('expense_amount'))['total'] or 0
 
+        context['form'] = self.filterset.form
         context['total_expense'] = total_expense
         context['expenses'] = context['expenses'].filter(user=self.request.user)
         return context
+    
+
+def expense_list(request):
+    form = ExpenseFilterForm(request.GET)
+    expenses = Expense.objects.all()
+
+    if form.is_valid():
+        if form.cleaned_data['expense_category']:
+            expenses = expenses.filter(expense_category=form.cleaned_data['expense_category'])
+        if form.cleaned_data['expense_payment_method']:
+            expenses = expenses.filter(expense_payment_method=form.cleaned_data['expense_payment_method'])
+        if form.cleaned_data['min_amount']:
+            expenses = expenses.filter(expense_amount__gte=form.cleaned_data['min_amount'])
+        if form.cleaned_data['max_amount']:
+            expenses = expenses.filter(expense_amount__lte=form.cleaned_data['max_amount'])
+
+
+    return render(request, 'expense_list.html', {'form': form, 'expenses': expenses})
+
+
+def income_list(request):
+    form = IncomeFilterForm(request.GET)
+    incomes = Income.objects.all()  # Changed 'expenses' to 'incomes'
+
+    if form.is_valid():
+        if form.cleaned_data['income_category']:
+            incomes = incomes.filter(income_category=form.cleaned_data['income_category'])  # Changed 'expenses' to 'incomes'
+        if form.cleaned_data['income_payment_method']:
+            incomes = incomes.filter(income_payment_method=form.cleaned_data['income_payment_method'])  # Changed 'expenses' to 'incomes'
+        if form.cleaned_data['min_amount']:
+            incomes = incomes.filter(income_amount__gte=form.cleaned_data['min_amount'])
+        if form.cleaned_data['max_amount']:
+            incomes = incomes.filter(income_amount__lte=form.cleaned_data['max_amount'])
+
+    return render(request, 'income_list.html', {'form': form, 'incomes': incomes})  # Changed 'expenses' to 'incomes', and 'expense_list.html' to 'income_list.html'
+
 
 
 class IncomeListView(LoginRequiredMixin, generic.ListView):
@@ -135,7 +183,8 @@ class IncomeListView(LoginRequiredMixin, generic.ListView):
         total_income = Income.objects.filter(user=self.request.user).aggregate(total=Sum('income_amount'))['total'] or 0
         context['total_income'] = total_income
         return context
-
+    
+    
 
 class ExpenseView(LoginRequiredMixin, generic.CreateView):
     model = Expense

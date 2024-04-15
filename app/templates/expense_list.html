@@ -1,12 +1,14 @@
 {% extends "base.html" %}
-{% load static %}
 
 {% block content %}
-<div class="right" style="padding: 20px 50px; text-align: center;">
 
-<a href="{% url 'search_expense' %}" style="border: 1px solid black; color: white; background-color: #4CAF50; position: absolute; text-decoration: none; font-size: 20px; border-radius: 50px; padding: 8px 15px; top: 150px; left: 50px;">Search Expense</a>
-<h1 style="text-align: center;">Expenses</h1>
-<h2 style="text-align: center;">Total: ${{ total_expense }}</h2>
+<form method="get">
+    {{ form.as_p }}
+    <button type="submit">Apply Filters</button>
+</form>
+
+{% if expenses %}
+<div class="right" style="padding: 20px 50px; text-align: center;">
 <table style="border-collapse: collapse; width: 100%;">
     <thead>
         <tr style="background-color: #f2f2f2;">
@@ -22,7 +24,7 @@
         {% for expense in expenses %}
         <tr style="background-color: #ffffff;">
             <td style="border: 1px solid #ddd; padding: 8px;">{{ expense.get_expense_category_display }}</td>
-            <td style="border: 1px solid #ddd; padding: 8px;">{{ expense.expense_amount }} SMN</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">${{ expense.expense_amount }}</td>
             <td style="border: 1px solid #ddd; padding: 8px;">{{ expense.get_expense_payment_method_display }}</td>
             <td style="border: 1px solid #ddd; padding: 8px;">{{ expense.expense_comment }}</td>
             <td style="border: 1px solid #ddd; padding: 8px;">{{ expense.expense_date|date:"d/m/Y" }}</td>
@@ -35,5 +37,8 @@
     </tbody>
 </table>
 </div>
+{% else %}
+    <p>No expenses found.</p>
+{% endif %}
 
 {% endblock content %}

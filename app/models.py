@@ -49,4 +49,4 @@ class Income(models.Model):
     income_amount = models.IntegerField(default=0)
     income_payment_method = models.CharField(max_length=50, choices=PAYMENT_METHOD)
     income_date = models.DateField(default=timezone.now)
-    income_comment = models.TextField(null=False)
+    income_comment = models.TextField(null=False)  

@@ -1,21 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="main">
-<!-- <div class="left" style="width: 25%; background-color: #f44336; position: sticky; top: 0; height: 80vh;">
-    <form method="GET">
-        {{ form.as_p }}
-        <input type="submit" value="Search" style="padding: 8px 15px; border: none; border-radius: 8px; background-color: blue; color: white; font-size: 16px;">
-    </form>
-</div> -->
-<div class="right" style="padding: 20px 50px; text-align: center;">
-    <a href="{% url 'search_income' %}" style="border: 1px solid black; color: white; background-color: #4CAF50; position: absolute; text-decoration: none; font-size: 20px; border-radius: 50px; padding: 8px 15px; top: 150px; left: 50px;">Search Expense</a>
 
-<h1 style="text-align: center;">Incomes</h1>
-<h2 style="text-align: center;">Total: ${{ total_income }}</h2>
+<form method="get">
+    {{ form.as_p }}
+    <button type="submit">Apply Filters</button>
+</form>
+
+{% if incomes %}
+<div class="right" style="padding: 20px 50px; text-align: center;">
 <table class="income-table" style="border-collapse: collapse;">
     <thead>
-        <tr style="background-color: yellow;">
+        <tr style="background-color: #f2f2f2;">
             <th style="border: 1px solid #ddd; padding: 8px;">Category</th>
             <th style="border: 1px solid #ddd; padding: 8px;">Amount</th>
             <th style="border: 1px solid #ddd; padding: 8px;">Payment method</th>
@@ -28,7 +24,7 @@
         {% for income in incomes %}
         <tr style="background-color: #ffffff;">
             <td style="border: 1px solid #ddd; padding: 8px;">{{ income.get_income_category_display }}</td>
-            <td style="border: 1px solid #ddd; padding: 8px;">{{ income.income_amount }} SMN</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">${{ income.income_amount }}</td>
             <td style="border: 1px solid #ddd; padding: 8px;">{{ income.get_income_payment_method_display }}</td>
             <td style="border: 1px solid #ddd; padding: 8px;">{{ income.income_comment }}</td>
             <td style="border: 1px solid #ddd; padding: 8px;">{{ income.income_date|date:"d/m/Y" }}</td>
@@ -41,6 +37,8 @@
     </tbody>
 </table>
 </div>
-</div>
+{% else %}
+    <p>No incomes found.</p>
+{% endif %}
 
 {% endblock content %}
