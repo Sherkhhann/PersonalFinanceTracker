@@ -13,7 +13,7 @@ from django.utils import timezone
 from .filters import ExpenseFilter
 from .forms import ExpenseFilterForm, IncomeFilterForm
 
-
+# Users
 class UserLoginView(LoginView):
     template_name = 'login.html'
     fields = '__all__'
